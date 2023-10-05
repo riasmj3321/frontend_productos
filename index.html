@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="imagen/jfif" href="public/logodaox.jfif" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ControlDaoxPro</title>
+  </head>
+  <body>
+    <header class="fixed-header">
+      <div class="header-content">
+          <h1>Bienvenido a Nuestro ControlDaox PRO</h1>
+          <div class="header-buttons">
+              <button class="search-button">Buscar</button>
+              <button class="add-product-button">Agregar Nuevo Producto</button>
+              <div class="product-form">
+                  <input id="product-name" type="text" placeholder="Nombre del producto">
+                  <input id="product-cost" type="number" placeholder="Costo">
+                  <input id="product-sale" type="number" placeholder="Precio">
+                  <input id="product-descrption" type="text" placeholder="Descripcion">
+                  <input id="product-stock" type="number" placeholder="Stock">
+                  <button class="submit-button">Agregar</button>
+              </div>
+          </div>
+      </div>
+  </header>
+
+  <main>
+    <div class="producto">
+        <div class="imagen-container">
+            <img class="imagen-producto" src="public/camiseta-nike-otmak.jpg" alt="Producto 1">
+        </div>
+        <div class="descripcion-precio">
+            <div class="descripcion-producto">
+                <h2>Camisa Nike Original</h2>
+                <p>Camiseta Nike Jordan Jumpman Dri-fit Para Hombre-Roja</p>
+            </div>
+            <div class="precio-producto">
+                <p>Precio: $150.000</p>
+            </div>
+            <div class="costo-producto">
+              <p>Costo: $89.900</p>
+            </div>
+            <div class="eliminar-producto">
+              <button class="edit-button">Editar</button>
+              <button class="delete-button">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="producto">
+        <div class="imagen-container">
+            <img class="imagen-producto" src="public/zapatillasnike01.png" alt="Producto 2">
+        </div>
+        <div class="descripcion-precio">
+            <div class="descripcion-producto">
+                <h2>Zapatillas Nike 1200</h2>
+                <p>Zapatillas de Running para Hombre Original Importada</p>
+            </div>
+            <div class="precio-producto">
+                <p>Precio: $259.900</p>
+            </div>
+            <div class="costo-producto">
+              <p>Costo: $159.900</p>
+            </div>
+            <div class="eliminar-producto">
+              <button class="edit-button">Editar</button>
+                <button class="delete-button">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="producto">
+      <div class="imagen-container">
+          <img class="imagen-producto" src="public/lenovo-laptop-ideapad-z400-dark-chocolate-main.webp" alt="Producto 1">
+      </div>
+      <div class="descripcion-precio">
+          <div class="descripcion-producto">
+              <h2>Computadora Lenovo IdeaPad Slim 5i 8va Gen (14”, Intel)
+              </h2>
+              <p>Laptop Smart, delgada, ligera y de grado militar de 14"
+                Equipada con procesadores hasta Intel® Core™ de 13ra generación
+                Capacidad de respuesta de la laptop en tiempo real a través de Lenovo AI Engine</p>
+          </div>
+          <div class="precio-producto">
+              <p>Precio: $3.259.999</p>
+          </div>
+          <div class="costo-producto">
+            <p>Costo: $2.500.000</p>
+          </div>
+          <div class="eliminar-producto">
+            <button class="edit-button">Editar</button>
+              <button class="delete-button">Eliminar</button>
+          </div>
+      </div>
+  </div>
+
+
+</main>
+
+  <footer>
+      <p>&copy; 2023 Tienda Virtual. Todos los derechos reservados.</p>
+  </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
