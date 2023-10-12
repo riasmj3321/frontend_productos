@@ -79,9 +79,14 @@ header {
   padding: 20px;
 }
 
-#product-stock {
-  width: 50px; 
-  margin-left: 10px; 
+.stock-producto {
+  font-size: 20px;
+  transition: transform 0.5s, box-shadow 0.5s;
+}
+
+.stock-producto:hover {
+  color: rgb(255, 255, 255);
+  transform: scale(1.1) rotateX(10deg);
 }
 
 .producto {
@@ -140,12 +145,19 @@ display: flex;
   font-weight: bold;
 }
 
+.precio-producto:hover {
+  color: rgb(255, 123, 0);
+}
+
 .costo-producto {
   text-align: right;
   margin-top: 10px;
   font-weight: bold;
 }
 
+.costo-producto:hover {
+  color: rgb(255, 123, 0);
+}
 
 .delete-button {
   background-color: #FF5733; 
@@ -222,4 +234,8 @@ display: flex;
 
 .edit-form button:hover {
   background-color: #0056b3;
+}
+
+footer {
+  color: rgb(255, 255, 255);
 }

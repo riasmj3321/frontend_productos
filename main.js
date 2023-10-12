@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const productForm = document.querySelector(".product-form");
     const submitButton = document.querySelector(".submit-button");
     const productList = document.querySelector(".main");
+    
   
     
     addButton.addEventListener("click", function () {
@@ -38,8 +39,10 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
             <div class="costo-producto">
                 <p>Costo: $${productCost}</p>
+                </div>    
+              <div class="stock-producto">
                 <p>Disponibles: ${productStock}</p>
-            </div>
+              </div>
             <div class="eliminar-producto">
                 <button class="edit-button">Editar</button>
                 <button class="delete-button">Eliminar</button>
