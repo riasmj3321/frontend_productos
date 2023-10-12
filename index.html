@@ -28,6 +28,23 @@
 
   
   <main>
+    <div class="edit-form" style="display: none;">
+      <label for="editedName">Nombre del producto:</label>
+      <input type="text" id="editedName" placeholder="Nombre del producto">
+      <label for="editedCost">Costo:</label>
+      <input type="number" id="editedCost" placeholder="Costo">
+      <label for="editedSale">Precio:</label>
+      <input type="number" id="editedSale" placeholder="Precio">
+      <label for="editedDescription">Descripción:</label>
+      <input type="text" id="editedDescription" placeholder="Descripción">
+      <label for="editedStock">Stock:</label>
+      <input type="number" id="editedStock" placeholder="Stock">
+      <label for="imageInput">Imagen:</label>
+      <input type="file" id="imageInput" accept="image/*">
+      <button id="saveEdit">Guardar</button>
+      <button id="closeButton">Cerrar</button>
+    </div>
+
     <div class="main">
     <div class="producto">
         <div class="imagen-container">
@@ -36,13 +53,18 @@
         <div class="descripcion-precio">
             <div class="descripcion-producto">
                 <h2>Camisa Nike Original</h2>
+                <div class="descripcion-producto2">
                 <p>Camiseta Nike Jordan Jumpman Dri-fit Para Hombre-Roja</p>
+                </div>
             </div>
             <div class="precio-producto">
                 <p>Precio: $150.000</p>
             </div>
             <div class="costo-producto">
               <p>Costo: $89.900</p>
+            </div>
+            <div class="stock-producto">
+              <p>Stock: 22</p>
             </div>
             <div class="eliminar-producto">
               <button class="edit-button">Editar</button>
@@ -58,13 +80,18 @@
         <div class="descripcion-precio">
             <div class="descripcion-producto">
                 <h2>Zapatillas Nike 1200</h2>
-                <p>Zapatillas de Running para Hombre Original Importada</p>
+                <div class="descripcion-producto2">
+                  <p>Camiseta Nike Jordan Jumpman Dri-fit Para Hombre-Roja</p>
+                  </div>
             </div>
             <div class="precio-producto">
                 <p>Precio: $259.900</p>
             </div>
             <div class="costo-producto">
               <p>Costo: $159.900</p>
+            </div>
+            <div class="stock-producto">
+              <p>Stock: 22</p>
             </div>
             <div class="eliminar-producto">
               <button class="edit-button">Editar</button>
@@ -73,27 +100,6 @@
         </div>
     </div>
 
-    <div class="producto">
-      <div class="imagen-container">
-          <img class="imagen-producto" src="public/lenovo-laptop-ideapad-z400-dark-chocolate-main.webp" alt="Producto 2">
-      </div>
-      <div class="descripcion-precio">
-          <div class="descripcion-producto">
-              <h2>Computadora Lenovo</h2>
-              <p>Pc lenovo Ultima Generacion</p>
-          </div>
-          <div class="precio-producto">
-              <p>Precio: $1.259.900</p>
-          </div>
-          <div class="costo-producto">
-            <p>Costo: $1.019.900</p>
-          </div>
-          <div class="eliminar-producto">
-            <button class="edit-button">Editar</button>
-              <button class="delete-button">Eliminar</button>
-          </div>
-      </div>
-  </div>
 </main>
 </div>
 
@@ -101,6 +107,7 @@
       <p>&copy; 2023 Tienda Virtual. Todos los derechos reservados.</p>
   </footer>
 
-    <script type="module" src="/main.js"></script>
+  <script type="module" src="/main.js"></script>
+  <script type="module" src="/edita.js"></script>
   </body>
 </html>

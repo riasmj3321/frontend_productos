@@ -29,7 +29,9 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="descripcion-precio">
             <div class="descripcion-producto">
                 <h2>${productName}</h2>
+                <div class="descripcion-producto2">
                 <p>${productDescription}</p>
+                </div>
             </div>
             <div class="precio-producto">
                 <p>Precio: $${productSale}</p>
@@ -42,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button class="edit-button">Editar</button>
                 <button class="delete-button">Eliminar</button>
             </div>
+        </div>
         </div>
       `;
 
