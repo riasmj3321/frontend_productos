@@ -64,6 +64,54 @@
     </header>
 
     <main>
+
+      <form class="edit-form" style="display: none">
+        <input
+          id="editedName"
+          type="text"
+          name="name"
+          placeholder="Nombre del producto"
+          required
+        />
+        <input
+          id="editedCost"
+          name="cost"
+          type="number"
+          placeholder="Costo"
+          required
+        />
+        <input 
+          id="editedSale" 
+          type="number" 
+          placeholder="Precio" 
+          required 
+          />
+        <input
+          id="editedDescription"
+          name="description"
+          type="text"
+          placeholder="Descripcion"
+          required
+        />
+        <input
+          id="editedStock"
+          name="stock"
+          type="number"
+          placeholder="Stock"
+          required
+        />
+        
+        <input
+          id="imageInput"
+          type="text"
+          name="image"
+          placeholder="Link imagen producto"
+          required
+        />
+        <button type="submit" id="saveEdit">Guardar</button>
+        <button type="submit" id="closeButton">Cerrar</button>
+      </form>
+<!-- 
       <div class="edit-form" style="display: none">
         <label for="editedName">Nombre del producto:</label>
         <input type="text" id="editedName" placeholder="Nombre del producto" />
@@ -79,7 +127,7 @@
         <input type="file" id="imageInput" accept="image/*" />
         <button id="saveEdit">Guardar</button>
         <button id="closeButton">Cerrar</button>
-      </div>
+      </div> -->
 
       <div class="main">
         <div class="producto">

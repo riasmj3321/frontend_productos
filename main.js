@@ -1,5 +1,6 @@
 const addButton = document.querySelector(".add-product-button");
 const productForm = document.querySelector(".product-form");
+const editform = document.querySelector("edit-form");
 const submitButton = document.querySelector(".submit-button");
 const productList = document.querySelector(".main");
 
@@ -61,6 +62,33 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     fetch("http://localhost:3000/products", {
       method: "POST",
+      body: JSON.stringify({
+        name: e.target.elements.name.value,
+        cost: e.target.elements.cost.value,
+        sale: e.target.elements.sale.value,
+        description: e.target.elements.description.value,
+        stock: e.target.elements.stock.value,
+        image: e.target.elements.image.value,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        crearProducto(e.target.elements);
+        alert(data.message);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("Error al crear el producto");
+      });
+  });
+
+  editform.addEventListener("submit", (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/products", {
+      method: "PUT",
       body: JSON.stringify({
         name: e.target.elements.name.value,
         cost: e.target.elements.cost.value,
