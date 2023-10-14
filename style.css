@@ -1,20 +1,22 @@
 h1 {
-  animation-name: fadeIn; 
-  animation-duration: 3s; 
-  animation-timing-function: ease; 
+  animation-name: fadeIn;
+  animation-duration: 3s;
+  animation-timing-function: ease;
   transition: color 0.3s ease;
+  transition: transform 0.5s, box-shadow 0.5s;
 }
 
 h1:hover {
   color: rgb(87, 98, 242);
+  transform: scale(1.1) rotateX(10deg);
 }
 
 @keyframes fadeIn {
   from {
-      opacity: 0; 
+    opacity: 0;
   }
   to {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
@@ -22,10 +24,10 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-image: url('public/fondo.jpg'); 
+  background-image: url("public/fondo.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed; 
+  background-attachment: fixed;
   background-position: center center;
 }
 
@@ -39,26 +41,26 @@ header {
 .header-buttons {
   gap: 10px;
   align-items: center;
-  text-align: center; 
+  text-align: center;
   margin: 0 10px;
 }
 
 .search-button,
 .add-product-button,
 .submit-button {
-    padding: 5px 10px;
-    background-color: #555;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  padding: 5px 10px;
+  background-color: #555;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .search-button:hover,
 .cart-button:hover,
 .add-product-button:hover,
 .submit-button:hover {
-    background-color: #777;
+  background-color: #777;
 }
 
 .product-form {
@@ -112,11 +114,11 @@ header {
 
 .imagen-container:hover {
   transform: scale(1.1) rotateX(10deg);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 20px rgba(194, 130, 47, 0.5);
 }
 
 .producto {
-display: flex;
+  display: flex;
 }
 
 .imagen-producto {
@@ -131,6 +133,7 @@ display: flex;
 }
 
 .descripcion-producto {
+  max-width: 350px;
   flex-grow: 1;
   transition: color 0.3s ease;
 }
@@ -160,7 +163,7 @@ display: flex;
 }
 
 .delete-button {
-  background-color: #FF5733; 
+  background-color: #ff5733;
   color: white;
   border: none;
   border-radius: 4px;
@@ -169,11 +172,11 @@ display: flex;
 }
 
 .delete-button:hover {
-  background-color: #FF2600; 
+  background-color: #ff2600;
 }
 
 .edit-button {
-  background-color: #00a4fc; 
+  background-color: #00a4fc;
   color: white;
   border: none;
   border-radius: 4px;
@@ -182,7 +185,7 @@ display: flex;
 }
 
 .edit-button:hover {
-  background-color: #1a00e2; 
+  background-color: #1a00e2;
 }
 
 .edit-overlay {
