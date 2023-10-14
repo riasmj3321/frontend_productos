@@ -4,14 +4,14 @@ const submitButton = document.querySelector(".submit-button");
 const productList = document.querySelector(".main");
 
 function crearProducto(producto) {
-  const { name, cost, sale, description, stock } = producto;
+  const { name, cost, sale, description, stock, image } = producto;
   const newProduct = document.createElement("div");
   newProduct.classList.add("producto");
   newProduct.innerHTML = `
     <div class="imagen-container">
     <img
       class="imagen-producto"
-      src="public/camiseta-nike-otmak.jpg"
+      src="${image.value}"
       alt="${name.value}"
     />
     </div>
@@ -42,6 +42,7 @@ function crearProducto(producto) {
   sale.value = "";
   description.value = "";
   stock.value = "";
+  image.value = "";
   productForm.style.display = "none";
 }
 
@@ -58,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   productForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    fetch("http://localhost:5000/products", {
+    fetch("http://localhost:3000/products", {
       method: "POST",
       body: JSON.stringify({
         name: e.target.elements.name.value,
@@ -66,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
         sale: e.target.elements.sale.value,
         description: e.target.elements.description.value,
         stock: e.target.elements.stock.value,
+        image: e.target.elements.image.value,
       }),
       headers: {
         "Content-Type": "application/json",
