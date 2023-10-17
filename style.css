@@ -32,25 +32,28 @@ body {
 }
 
 header {
-  background-color: #33333385;
+  background-image: url("public/fondo.jpg");
   color: white;
   text-align: center;
   padding: 20px;
 }
 
 .header-buttons {
-  gap: 10px;
-  align-items: center;
-  text-align: center;
-  margin: 0 10px;
+  background-image: url("public/fondo.jpg");
+  color: #fff; /* Cambia el color del texto */
+  padding: 10px 20px; /* Cambia el espacio alrededor del texto */
+  border: none; /* Elimina el borde del botón */
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  margin: 5px; /* Agrega margen entre los botones */
+  border-radius: 5px; /* Agrega bordes redondeados */
 }
 
 .search-button,
 .add-product-button,
 .submit-button {
   padding: 5px 10px;
-  background-color: #555;
-  color: white;
+  background-color: #181818;
+  color: rgb(229, 24, 24);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -70,6 +73,8 @@ header {
 
 .product-form input[type="text"],
 .product-form input[type="number"] {
+  color: white;
+  background-color: #181818;
   padding: 5px;
   border: none;
   border-radius: 4px;
@@ -114,7 +119,7 @@ header {
 
 .imagen-container:hover {
   transform: scale(1.1) rotateX(10deg);
-  box-shadow: 0 0 20px rgba(194, 130, 47, 0.5);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .producto {
@@ -200,7 +205,7 @@ header {
 }
 
 .edit-form {
-  background-color: #9aacdb;
+  background-color: #212d4784;
   border: 1px solid #a35f5f;
   border-radius: 10px;
   position: absolute;
@@ -209,7 +214,7 @@ header {
   transform: translate(-50%, -50%);
   padding: 20px;
   width: 50%;
-  z-index: 1000; /* Asegura que aparezca encima de todo */
+  z-index: 1000;
 }
 
 .edit-form label {
@@ -219,7 +224,7 @@ header {
 }
 
 .edit-form input {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   margin-bottom: 15px;
   border: -5px solid #000000;
@@ -241,4 +246,5 @@ header {
 
 footer {
   color: rgb(255, 255, 255);
+  background-image: url("public/fondo.jpg");
 }

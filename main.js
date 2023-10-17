@@ -47,6 +47,31 @@ function crearProducto(producto) {
   productForm.style.display = "none";
 }
 
+function mostrarFormularioEdicion(product) {
+  const descripcionProducto = product.querySelector(".descripcion-producto h2");
+  const precioProducto = product.querySelector(".precio-producto p");
+  const costoProducto = product.querySelector(".costo-producto p");
+
+  document.getElementById("editedName").value = descripcionProducto.textContent;
+  document.getElementById("editedCost").value = parseFloat(
+    precioProducto.textContent.replace("$", "")
+  );
+  document.getElementById("editedSale").value = parseFloat(
+    costoProducto.textContent.replace("$", "")
+  );
+
+  const editForm = document.querySelector(".edit-form");
+  editForm.style.display = "block";
+}
+
+productList.addEventListener("click", function (event) {
+  const target = event.target;
+  if (target.classList.contains("edit-button")) {
+    const product = target.closest(".producto");
+    mostrarFormularioEdicion(product);
+  }
+});
+
 function obtenerProductos(api) {
   fetch(api)
     .then((res) => {
@@ -128,6 +153,7 @@ productForm.addEventListener("submit", (e) => {
   })
     .then((res) => res.json())
     .then((data) => {
+      mostrarFormularioEdicion(e.target.elements);
       crearProducto(e.target.elements);
       alert(data.message);
     })
@@ -137,16 +163,16 @@ productForm.addEventListener("submit", (e) => {
     });
 });
 
-// editform.addEventListener("submit", (e) => {
+// productForm.addEventListener("submit", (e) => {
 //   e.preventDefault();
-//   fetch("http://localhost:3000/products", {
+//   fetch("https://api-daox.2.us-1.fl0.io/products", {
 //     method: "PUT",
 //     body: JSON.stringify({
 //       name: e.target.elements.name.value,
-//       cost: e.target.elements.cost.value,
-//       sale: e.target.elements.sale.value,
+//       cost: parseInt(e.target.elements.cost.value),
+//       sale: parseInt(e.target.elements.sale.value),
 //       description: e.target.elements.description.value,
-//       stock: e.target.elements.stock.value,
+//       stock: parseInt(e.target.elements.stock.value),
 //       image: e.target.elements.image.value,
 //     }),
 //     headers: {
@@ -155,75 +181,11 @@ productForm.addEventListener("submit", (e) => {
 //   })
 //     .then((res) => res.json())
 //     .then((data) => {
-//       crearProducto(e.target.elements);
+//       mostrarFormularioEdicion(e.target.elements);
 //       alert(data.message);
 //     })
 //     .catch((error) => {
 //       console.log(error);
-//       alert("Error al crear el producto");
+//       alert("Error al editar el producto");
 //     });
 // });
-
-//   submitButton.addEventListener("click", function () {
-//     const productName = document.getElementById("product-name").value;
-//     const productCost = document.getElementById("product-cost").value;
-//     const productSale = document.getElementById("product-sale").value;
-//     const productDescription =
-//       document.getElementById("product-descrption").value;
-//     const productStock = document.getElementById("product-stock").value;
-
-//     const newProduct = document.createElement("div");
-//     newProduct.classList.add("producto");
-
-//     newProduct.innerHTML = `
-//         <div class="imagen-container">
-//             <img class="imagen-producto" src="public/gorra.webp" alt="${productName}">
-//         </div>
-//         <div class="descripcion-precio">
-//             <div class="descripcion-producto">
-//                 <h2>${productName}</h2>
-//                 <div class="descripcion-producto2">
-//                 <p>${productDescription}</p>
-//                 </div>
-//             </div>
-//             <div class="precio-producto">
-//                 <p>Precio: $${productSale}</p>
-//             </div>
-//             <div class="costo-producto">
-//                 <p>Costo: $${productCost}</p>
-//                 </div>
-//               <div class="stock-producto">
-//                 <p>Disponibles: ${productStock}</p>
-//               </div>
-//             <div class="eliminar-producto">
-//                 <button class="edit-button">Editar</button>
-//                 <button class="delete-button">Eliminar</button>
-//             </div>
-//         </div>
-//         </div>
-//       `;
-
-//     newProduct
-//       .querySelector(".delete-button")
-//       .addEventListener("click", function () {
-//         productList.removeChild(newProduct);
-//       });
-
-//     productList.appendChild(newProduct);
-
-//     productForm.style.display = "none";
-//     document.getElementById("product-name").value = "";
-//     document.getElementById("product-cost").value = "";
-//     document.getElementById("product-sale").value = "";
-//     document.getElementById("product-descrption").value = "";
-//     document.getElementById("product-stock").value = "";
-//   });
-// });
-
-// const deleteButtons = document.querySelectorAll(".delete-button");
-
-// deleteButtons.forEach(function (deleteButton) {
-//   deleteButton.addEventListener("click", function () {
-//     const product = deleteButton.closest(".producto");
-//     product.remove();
-//   });
