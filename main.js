@@ -3,6 +3,7 @@ const productForm = document.querySelector(".product-form");
 const editform = document.querySelector("edit-form");
 const submitButton = document.querySelector(".submit-button");
 const productList = document.querySelector(".main");
+const closeButton = document.querySelector("#closeButton");
 
 function crearProducto(producto) {
   const { name, cost, sale, description, stock, image } = producto;
@@ -64,8 +65,8 @@ function mostrarFormularioEdicion(product) {
   editForm.style.display = "block";
 }
 
-productList.addEventListener("click", function (event) {
-  const target = event.target;
+productList.addEventListener("click", function (e) {
+  const target = e.target;
   if (target.classList.contains("edit-button")) {
     const product = target.closest(".producto");
     mostrarFormularioEdicion(product);
@@ -83,7 +84,7 @@ function obtenerProductos(api) {
     .then((data) => {
       data.forEach((producto) => {
         const newProduct = document.createElement("div");
-        newProduct.id = producto.id;
+        newProduct.dataset.id = producto.id;
         newProduct.classList.add("producto");
         newProduct.innerHTML = `
           <div class="imagen-container">
@@ -117,12 +118,67 @@ function obtenerProductos(api) {
 
         productList.appendChild(newProduct);
       });
+
+      const deletebutton = document.querySelectorAll(".delete-button");
+      console.log(deletebutton);
+      deletebutton.forEach((e) => {
+        e.addEventListener("click", (i) => {
+          const elemento = i.target.closest(".producto");
+          const id = elemento.dataset.id;
+          deleteproducto(id, elemento);
+        });
+      });
     })
     .catch((err) => {
       console.log(err.message);
       alert(err.message);
     });
 }
+
+function deleteproducto(id, elemento) {
+  fetch(`https://api-daox.2.us-1.fl0.io/products/${id}`, {
+    method: "DELETE",
+  }).then((response) => {
+    if (!response.ok) {
+      alert("no respondio");
+      throw new Error("Ha ocurrido un error al eliminar el producto");
+    }
+    elemento.remove();
+    alert("producto eliminado correctamente");
+  });
+}
+
+function editarProducto(id, producto) {
+  const { name, cost, sale, description, stock, image } = producto;
+  const productToUpdate = document.getElementById(id);
+
+  const imagenProducto = productToUpdate.querySelector(".imagen-producto");
+  imagenProducto.src = image.value;
+  imagenProducto.alt = name.value;
+
+  const descripcionProducto = productToUpdate.querySelector(
+    ".descripcion-producto h2"
+  );
+  descripcionProducto.textContent = name.value;
+
+  const descripcionProducto2 = productToUpdate.querySelector(
+    ".descripcion-producto2 p"
+  );
+  descripcionProducto2.textContent = description.value;
+
+  const precioProducto = productToUpdate.querySelector(".precio-producto p");
+  precioProducto.textContent = `Precio: ${sale.value}`;
+
+  const costoProducto = productToUpdate.querySelector(".costo-producto p");
+  costoProducto.textContent = `Costo: ${cost.value}`;
+
+  const stockProducto = productToUpdate.querySelector(".stock-producto p");
+  stockProducto.textContent = `Disponible: ${stock.value}`;
+
+  const editForm = document.querySelector(".edit-form");
+  editForm.style.display = "none";
+}
+
 //Al refrescar la pagina
 document.addEventListener("DOMContentLoaded", function () {
   obtenerProductos("https://api-daox.2.us-1.fl0.io/products");
@@ -163,29 +219,29 @@ productForm.addEventListener("submit", (e) => {
     });
 });
 
-// productForm.addEventListener("submit", (e) => {
-//   e.preventDefault();
-//   fetch("https://api-daox.2.us-1.fl0.io/products", {
-//     method: "PUT",
-//     body: JSON.stringify({
-//       name: e.target.elements.name.value,
-//       cost: parseInt(e.target.elements.cost.value),
-//       sale: parseInt(e.target.elements.sale.value),
-//       description: e.target.elements.description.value,
-//       stock: parseInt(e.target.elements.stock.value),
-//       image: e.target.elements.image.value,
-//     }),
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   })
-//     .then((res) => res.json())
-//     .then((data) => {
-//       mostrarFormularioEdicion(e.target.elements);
-//       alert(data.message);
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//       alert("Error al editar el producto");
-//     });
-// });
+editform.addEventListener("submit", (e) => {
+  e.preventDefault();
+  fetch(`https://api-daox.2.us-1.fl0.io/products/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      name: e.target.elements.name.value,
+      cost: parseInt(e.target.elements.cost.value),
+      sale: parseInt(e.target.elements.sale.value),
+      description: e.target.elements.description.value,
+      stock: parseInt(e.target.elements.stock.value),
+      image: e.target.elements.image.value,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      editarProducto;
+      alert(data.message);
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("Error al editar el producto");
+    });
+});

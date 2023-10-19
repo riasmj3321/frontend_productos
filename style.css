@@ -7,7 +7,7 @@ h1 {
 }
 
 h1:hover {
-  color: rgb(87, 98, 242);
+  color: rgb(250, 155, 0);
   transform: scale(1.1) rotateX(10deg);
 }
 
@@ -208,7 +208,7 @@ header {
   background-color: #212d4784;
   border: 1px solid #a35f5f;
   border-radius: 10px;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
