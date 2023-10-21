@@ -1,247 +1,269 @@
-const addButton = document.querySelector(".add-product-button");
-const productForm = document.querySelector(".product-form");
-const editform = document.querySelector("edit-form");
-const submitButton = document.querySelector(".submit-button");
-const productList = document.querySelector(".main");
-const closeButton = document.querySelector("#closeButton");
+const productList = document.querySelector(".productos");
+const addProductForm = document.querySelector(".product-form");
+const editProductForm = document.querySelector(".edit-form");
 
-function crearProducto(producto) {
-  const { name, cost, sale, description, stock, image } = producto;
+function pintarProductoDOM(producto) {
   const newProduct = document.createElement("div");
+  newProduct.id = producto.id;
+  newProduct.dataset.name = producto.name;
+  newProduct.dataset.cost = producto.cost;
+  newProduct.dataset.sale = producto.sale;
+  newProduct.dataset.description = producto.description;
+  newProduct.dataset.stock = producto.stock;
+  newProduct.dataset.image = producto.image;
   newProduct.classList.add("producto");
   newProduct.innerHTML = `
     <div class="imagen-container">
     <img
       class="imagen-producto"
-      src="${image.value}"
-      alt="${name.value}"
+      src="${producto.image}"
+      alt="${producto.name}"
     />
     </div>
     <div class="descripcion-precio">
       <div class="descripcion-producto">
-        <h2>${name.value}</h2>
+        <h2>${producto.name}</h2>
         <div class="descripcion-producto2">
-          <p>${description.value}</p>
+          <p>${producto.description}</p>
         </div>
       </div>
       <div class="precio-producto">
-        <p>Precio: ${sale.value}</p>
+        <p>Precio: ${producto.sale}</p>
       </div>
       <div class="costo-producto">
-        <p>Costo: ${cost.value}</p>
+        <p>Costo: ${producto.cost}</p>
       </div>
       <div class="stock-producto">
-        <p>Disponible: ${stock.value}</p>
+        <p>Disponible: ${producto.stock}</p>
       </div>
       <div class="eliminar-producto">
         <button class="edit-button">Editar</button>
         <button class="delete-button">Eliminar</button>
       </div>
     </div>`;
+
   productList.appendChild(newProduct);
-  name.value = "";
-  cost.value = "";
-  sale.value = "";
-  description.value = "";
-  stock.value = "";
-  image.value = "";
-  productForm.style.display = "none";
 }
-
-function mostrarFormularioEdicion(product) {
-  const descripcionProducto = product.querySelector(".descripcion-producto h2");
-  const precioProducto = product.querySelector(".precio-producto p");
-  const costoProducto = product.querySelector(".costo-producto p");
-
-  document.getElementById("editedName").value = descripcionProducto.textContent;
-  document.getElementById("editedCost").value = parseFloat(
-    precioProducto.textContent.replace("$", "")
-  );
-  document.getElementById("editedSale").value = parseFloat(
-    costoProducto.textContent.replace("$", "")
-  );
-
-  const editForm = document.querySelector(".edit-form");
-  editForm.style.display = "block";
-}
-
-productList.addEventListener("click", function (e) {
-  const target = e.target;
-  if (target.classList.contains("edit-button")) {
-    const product = target.closest(".producto");
-    mostrarFormularioEdicion(product);
-  }
-});
 
 function obtenerProductos(api) {
   fetch(api)
-    .then((res) => {
-      if (!res.ok) {
+    .then((respuesta) => {
+      if (!respuesta.ok) {
         throw new Error("Error al cargar los productos");
       }
-      return res.json();
+      return respuesta.json();
     })
-    .then((data) => {
-      data.forEach((producto) => {
-        const newProduct = document.createElement("div");
-        newProduct.dataset.id = producto.id;
-        newProduct.classList.add("producto");
-        newProduct.innerHTML = `
-          <div class="imagen-container">
-          <img
-            class="imagen-producto"
-            src="${producto.image}"
-            alt="${producto.name}"
-          />
-          </div>
-          <div class="descripcion-precio">
-            <div class="descripcion-producto">
-              <h2>${producto.name}</h2>
-              <div class="descripcion-producto2">
-                <p>${producto.description}</p>
-              </div>
-            </div>
-            <div class="precio-producto">
-              <p>Precio: ${producto.sale}</p>
-            </div>
-            <div class="costo-producto">
-              <p>Costo: ${producto.cost}</p>
-            </div>
-            <div class="stock-producto">
-              <p>Disponible: ${producto.stock}</p>
-            </div>
-            <div class="eliminar-producto">
-              <button class="edit-button">Editar</button>
-              <button class="delete-button">Eliminar</button>
-            </div>
-          </div>`;
-
-        productList.appendChild(newProduct);
-      });
-
-      const deletebutton = document.querySelectorAll(".delete-button");
-      console.log(deletebutton);
-      deletebutton.forEach((e) => {
-        e.addEventListener("click", (i) => {
-          const elemento = i.target.closest(".producto");
-          const id = elemento.dataset.id;
-          deleteproducto(id, elemento);
-        });
+    .then((productos) => {
+      productos.forEach((producto) => {
+        pintarProductoDOM(producto);
       });
     })
     .catch((err) => {
       console.log(err.message);
-      alert(err.message);
+      alerta(err.message);
     });
 }
 
-function deleteproducto(id, elemento) {
+function crearProducto(producto) {
+  fetch("https://api-daox.2.us-1.fl0.io/products/", {
+    method: "POST",
+    body: JSON.stringify(producto),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((respuesta) => {
+      if (!respuesta.ok) {
+        throw new Error("Error al crear el producto");
+      }
+      return respuesta.json();
+    })
+    .then((data) => {
+      const mensaje = data.message;
+      const producto = data.body;
+      pintarProductoDOM(producto);
+      alerta(mensaje);
+      addProductForm.reset();
+      toggleFormulario();
+    })
+    .catch((error) => {
+      console.log(error);
+      alerta("Error al crear el producto");
+    });
+}
+
+function toggleFormulario() {
+  addProductForm.classList.toggle("open");
+}
+
+function alerta(message) {
+  const alertContainer = document.getElementById("alertContainer");
+
+  const alertElement = document.createElement("div");
+  alertElement.classList.add("alert");
+  alertElement.textContent = message;
+  alertContainer.appendChild(alertElement);
+
+  alertElement.style.display = "block";
+
+  setTimeout(function () {
+    alertElement.style.display = "none";
+    alertElement.remove();
+  }, 3000);
+}
+
+function eliminarProducto(id) {
   fetch(`https://api-daox.2.us-1.fl0.io/products/${id}`, {
     method: "DELETE",
-  }).then((response) => {
-    if (!response.ok) {
-      alert("no respondio");
-      throw new Error("Ha ocurrido un error al eliminar el producto");
-    }
-    elemento.remove();
-    alert("producto eliminado correctamente");
-  });
-}
-
-function editarProducto(id, producto) {
-  const { name, cost, sale, description, stock, image } = producto;
-  const productToUpdate = document.getElementById(id);
-
-  const imagenProducto = productToUpdate.querySelector(".imagen-producto");
-  imagenProducto.src = image.value;
-  imagenProducto.alt = name.value;
-
-  const descripcionProducto = productToUpdate.querySelector(
-    ".descripcion-producto h2"
-  );
-  descripcionProducto.textContent = name.value;
-
-  const descripcionProducto2 = productToUpdate.querySelector(
-    ".descripcion-producto2 p"
-  );
-  descripcionProducto2.textContent = description.value;
-
-  const precioProducto = productToUpdate.querySelector(".precio-producto p");
-  precioProducto.textContent = `Precio: ${sale.value}`;
-
-  const costoProducto = productToUpdate.querySelector(".costo-producto p");
-  costoProducto.textContent = `Costo: ${cost.value}`;
-
-  const stockProducto = productToUpdate.querySelector(".stock-producto p");
-  stockProducto.textContent = `Disponible: ${stock.value}`;
-
-  const editForm = document.querySelector(".edit-form");
-  editForm.style.display = "none";
-}
-
-//Al refrescar la pagina
-document.addEventListener("DOMContentLoaded", function () {
-  obtenerProductos("https://api-daox.2.us-1.fl0.io/products");
-});
-
-// Boton para abrir el formulario de creacion de producto
-addButton.addEventListener("click", function () {
-  productForm.style.display = "block";
-  console.log(productForm);
-});
-
-// Manejar el evento submit del formulario para crear
-productForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-  fetch("https://api-daox.2.us-1.fl0.io/products", {
-    method: "POST",
-    body: JSON.stringify({
-      name: e.target.elements.name.value,
-      cost: parseInt(e.target.elements.cost.value),
-      sale: parseInt(e.target.elements.sale.value),
-      description: e.target.elements.description.value,
-      stock: parseInt(e.target.elements.stock.value),
-      image: e.target.elements.image.value,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
   })
-    .then((res) => res.json())
-    .then((data) => {
-      mostrarFormularioEdicion(e.target.elements);
-      crearProducto(e.target.elements);
-      alert(data.message);
+    .then((respuesta) => {
+      if (!respuesta.ok) {
+        throw new Error("Error al eliminar el producto");
+      }
+      if (respuesta.status === 204) {
+        const productoElminiar = document.getElementById(id);
+        productoElminiar.remove();
+        alerta("Producto eliminado");
+      }
     })
     .catch((error) => {
       console.log(error);
-      alert("Error al crear el producto");
+      alerta("Error al eliminar el producto");
     });
-});
+}
 
-editform.addEventListener("submit", (e) => {
-  e.preventDefault();
-  fetch(`https://api-daox.2.us-1.fl0.io/products/${id}`, {
+function configurarFormulario(producto) {
+  editProductForm.dataset.id = producto.id;
+  editProductForm.elements.name.value = producto.name;
+  editProductForm.elements.cost.value = producto.cost;
+  editProductForm.elements.sale.value = producto.sale;
+  editProductForm.elements.description.value = producto.description;
+  editProductForm.elements.stock.value = producto.stock;
+  editProductForm.elements.image.value = producto.image;
+}
+
+function editarProducto(producto) {
+  fetch(`https://api-daox.2.us-1.fl0.io/products/${producto.id}`, {
     method: "PUT",
-    body: JSON.stringify({
-      name: e.target.elements.name.value,
-      cost: parseInt(e.target.elements.cost.value),
-      sale: parseInt(e.target.elements.sale.value),
-      description: e.target.elements.description.value,
-      stock: parseInt(e.target.elements.stock.value),
-      image: e.target.elements.image.value,
-    }),
+    body: JSON.stringify(producto),
     headers: {
       "Content-Type": "application/json",
     },
   })
-    .then((res) => res.json())
+    .then((respuesta) => {
+      if (!respuesta.ok) {
+        throw new Error("Error al editar el producto");
+      }
+      return respuesta.json();
+    })
     .then((data) => {
-      editarProducto;
-      alert(data.message);
+      const mensaje = data.message;
+      const producto = data.body;
+      editarProductoDOM(producto);
+      alerta(mensaje);
+      toggleFormularioEditar();
     })
     .catch((error) => {
       console.log(error);
-      alert("Error al editar el producto");
+      alerta("Error al editar el producto");
     });
+}
+
+function editarProductoDOM(producto) {
+  const productoHTML = document.getElementById(producto.id);
+  productoHTML.dataset.name = producto.name;
+  productoHTML.dataset.cost = producto.cost;
+  productoHTML.dataset.sale = producto.sale;
+  productoHTML.dataset.description = producto.description;
+  productoHTML.dataset.stock = producto.stock;
+  productoHTML.dataset.image = producto.image;
+
+  const imagen = productoHTML.querySelector(".imagen-producto");
+  imagen.src = producto.image;
+  imagen.alt = producto.name;
+
+  const nombre = productoHTML.querySelector("h2");
+  nombre.textContent = producto.name;
+
+  const descripcion = productoHTML.querySelector("p");
+  descripcion.textContent = producto.description;
+
+  const precio = productoHTML.querySelector(".precio-producto");
+  precio.textContent = `Precio: ${producto.sale}`;
+
+  const costo = productoHTML.querySelector(".costo-producto");
+  costo.textContent = `Costo: ${producto.cost}`;
+
+  const stock = productoHTML.querySelector(".stock-producto");
+  stock.textContent = `Disponible: ${producto.stock}`;
+}
+
+function toggleFormularioEditar() {
+  editProductForm.classList.toggle("close");
+}
+
+// DELEGACIÓN DE EVENTOS
+// EVENTO DOM CONTENT LOADED
+document.addEventListener("DOMContentLoaded", () => {
+  obtenerProductos("https://api-daox.2.us-1.fl0.io/products/");
+});
+
+// EVENTO CLICK
+document.addEventListener("click", (e) => {
+  if (e.target.matches(".open-form") || e.target.matches(".close-button")) {
+    toggleFormulario();
+  }
+
+  if (e.target.matches(".delete-button")) {
+    const id = e.target.parentElement.parentElement.parentElement.id;
+    eliminarProducto(id);
+  }
+
+  if (e.target.matches(".edit-button") || e.target.matches("#closeButton")) {
+    toggleFormularioEditar();
+    const id = e.target.parentElement.parentElement.parentElement.id;
+    const productoHTML = document.getElementById(id);
+
+    if (productoHTML) {
+      const producto = {
+        id: productoHTML.id,
+        name: productoHTML.dataset.name,
+        cost: productoHTML.dataset.cost,
+        sale: productoHTML.dataset.sale,
+        description: productoHTML.dataset.description,
+        stock: productoHTML.dataset.stock,
+        image: productoHTML.dataset.image,
+      };
+      configurarFormulario(producto);
+    }
+  }
+});
+
+// EVENTO SUBMIT
+document.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  if (e.target.matches(".product-form")) {
+    crearProducto({
+      name: e.target.elements.name.value,
+      cost: Number(e.target.elements.cost.value),
+      sale: Number(e.target.elements.sale.value),
+      description: e.target.elements.description.value,
+      stock: Number(e.target.elements.stock.value),
+      image: e.target.elements.image.value,
+    });
+  }
+
+  if (e.target.matches(".edit-form")) {
+    const id = e.target.dataset.id;
+    editarProducto({
+      id: id,
+      name: e.target.elements.name.value,
+      cost: Number(e.target.elements.cost.value),
+      sale: Number(e.target.elements.sale.value),
+      description: e.target.elements.description.value,
+      stock: Number(e.target.elements.stock.value),
+      image: e.target.elements.image.value,
+    });
+  }
 });

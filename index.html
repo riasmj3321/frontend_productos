@@ -10,56 +10,58 @@
   <body>
     <header class="fixed-header">
       <div class="header-content">
-        <h1 class="mi-h1">PRODUCTDAOX</h1>
+        <h1>PRODUCTDAOX</h1>
         <div class="header-buttons">
-          <button class="add-product-button">Agregar Nuevo Producto</button>
-
-          <form class="product-form">
-            <input
-              id="name"
-              type="text"
-              name="name"
-              placeholder="Nombre del producto"
-              required
-            />
-            <input
-              id="cost"
-              name="cost"
-              type="number"
-              placeholder="Costo"
-              required
-            />
-            <input id="sale" type="number" placeholder="Precio" required />
-            <input
-              id="description"
-              name="description"
-              type="text"
-              placeholder="Descripcion"
-              required
-            />
-            <input
-              id="stock"
-              name="stock"
-              type="number"
-              placeholder="Stock"
-              required
-            />
-
-            <input
-              id="image"
-              type="text"
-              name="image"
-              placeholder="Link imagen producto"
-              required
-            />
-            <button type="submit" class="submit-button">Agregar</button>
-          </form>
+          <button class="open-form">Agregar Nuevo Producto</button>
         </div>
       </div>
     </header>
 
     <main>
-      <form class="edit-form" style="display: none">
+      <div class="alert-container" id="alertContainer"></div>
+      <form class="product-form">
+        <button class="close-button" type="button">Cerrar</button>
+        <input
+          id="name"
+          type="text"
+          name="name"
+          placeholder="Nombre del producto"
+          required
+        />
+        <input
+          id="cost"
+          name="cost"
+          type="number"
+          placeholder="Costo"
+          required
+        />
+        <input id="sale" type="number" placeholder="Precio" required />
+        <input
+          id="description"
+          name="description"
+          type="text"
+          placeholder="Descripcion"
+          required
+        />
+        <input
+          id="stock"
+          name="stock"
+          type="number"
+          placeholder="Stock"
+          required
+        />
+
+        <input
+          id="image"
+          type="url"
+          name="image"
+          placeholder="Link imagen producto"
+          required
+        />
+        <button type="submit" class="submit-button">Agregar</button>
+      </form>
+
+      <form class="edit-form close">
         <input
           id="editedName"
           type="text"
@@ -74,7 +76,13 @@
           placeholder="Costo"
           required
         />
-        <input id="editedSale" type="number" placeholder="Precio" required />
+        <input
+          id="editedSale"
+          name="sale"
+          type="number"
+          placeholder="Precio"
+          required
+        />
         <input
           id="editedDescription"
           name="description"
@@ -98,27 +106,10 @@
           required
         />
         <button type="submit" id="saveEdit">Guardar</button>
-        <button type="submit" id="closeButton">Cerrar</button>
+        <button type="button" id="closeButton">Cerrar</button>
       </form>
-      <!-- 
-      <div class="edit-form" style="display: none">
-        <label for="editedName">Nombre del producto:</label>
-        <input type="text" id="editedName" placeholder="Nombre del producto" />
-        <label for="editedCost">Costo:</label>
-        <input type="number" id="editedCost" placeholder="Costo" />
-        <label for="editedSale">Precio:</label>
-        <input type="number" id="editedSale" placeholder="Precio" />
-        <label for="editedDescription">Descripción:</label>
-        <input type="text" id="editedDescription" placeholder="Descripción" />
-        <label for="editedStock">Stock:</label>
-        <input type="number" id="editedStock" placeholder="Stock" />
-        <label for="imageInput">Imagen:</label>
-        <input type="file" id="imageInput" accept="image/*" />
-        <button id="saveEdit">Guardar</button>
-        <button id="closeButton">Cerrar</button>
-      </div> -->
 
-      <div class="main"></div>
+      <div class="productos"></div>
     </main>
 
     <footer>
@@ -130,5 +121,5 @@
 
     <script type="module" src="/main.js"></script>
     <script type="module" src="/edita.js"></script>
-  </body>
+  </body>
 </html>
